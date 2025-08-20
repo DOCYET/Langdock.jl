@@ -3,12 +3,17 @@ using Test
 using HTTP
 using JSON3
 
-# Test groups
+@testset "Langdock" begin 
+    @testset "Types" begin 
+        include("types/provider.jl")
+        include("types/assistant_config.jl")
+    end 
 
-include("utils.jl")
-include("types.jl")
-include("auth.jl")
-include("api/API.jl")
-include("integration.jl")
+    @testset "API" begin 
+        include("api/request.jl")
+        include("api/embeddings.jl")
+        include("api/assistants.jl")
+    end
 
+end
 

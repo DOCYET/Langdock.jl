@@ -1,1 +1,1 @@
-# Langdock.jl - Julia wrapper for Langdock (unofficial)
+# Langdock.jl - Julia wrapper for Langdock (Unofficial)

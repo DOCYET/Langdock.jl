@@ -5,6 +5,7 @@ module Langdock
 using HTTP
 using JSON3
 using Logging
+using StructTypes 
 
 # Constansts
 # -----------
@@ -16,14 +17,25 @@ const VERSION = v"0.1.0"
 include("constants.jl")
 export REGIONS 
 
-include("types.jl")
-export LangdockProvider, LangdockResponse,  Message, LangdockError
+# Types 
+include("types/assistant_config.jl")
+export AssistantConfig
 
-include("auth.jl")
-export get_api_key, create_provider, get_default_provider, reset_default_provider!
+include("types/provider.jl")
+export AbstractLangdockProvider, LangdockProvider, get_api_key, get_default_provider, reset_default_provider!
 
-include("api/API.jl")
-export with_retry, completion_openai, completion_anthropic, embedding_openai, assistant_chat_completion, assistant_models
+include("types/response.jl")
+export LangdockResponse
+
+# API 
+include("api/request.jl")
+export build_url, auth_header, langdock_request
+
+include("api/assistants.jl")
+export list_assistant_models, create_assistant_chat
+
+include("api/embeddings.jl")
+export create_openai_embeddings
 
 
 

@@ -1,3 +1,40 @@
+abstract type AbstractLangdockProvider end
+
+"""
+    LangdockProvider
+
+Configuration for connecting to the Langdock API.
+
+# Fields
+- `api_key`: API key for authentication
+- `api_version`: API version to use (default: "v1")
+- `base_url`: Base URL for the API (default: https://api.langdock.com)
+- `region`: Region for the API endpoints ("eu" or "us", default: "eu")
+- `timeout`: Request timeout in seconds (default: 30)
+"""
+mutable struct LangdockProvider <: AbstractLangdockProvider
+    api_key::String
+    api_version::String
+    base_url::String
+    region::String
+    timeout::Int
+    
+    function LangdockProvider(;
+        api_key::String="",
+        api_version::String=DEFAULT_API_VERSION,
+        base_url::String=DEFAULT_BASE_URL,
+        region::String=DEFAULT_REGION,
+        timeout::Int=DEFAULT_TIMEOUT
+    )
+        isempty(api_key) && throw(ArgumentError("API key cannot be empty"))
+        !(api_version in API_VERSIONS) && throw(ArgumentError("Invalid API version: $api_version. Must be one of: $API_VERSIONS"))
+        !(region in REGIONS) && throw(ArgumentError("Region must be one of $REGIONS, got: $region"))
+        timeout <= 0 && throw(ArgumentError("Timeout must be a positive integer, got: $timeout"))
+        
+        new(api_key, api_version, base_url, region, timeout)
+    end
+end
+
 # Constants 
 # ---------
 const DEFAULT_PROVIDER_CACHE = Ref{Union{LangdockProvider, Nothing}}(nothing) # Cache for the default provider

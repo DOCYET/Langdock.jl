@@ -1,4 +1,58 @@
-@testset "Auth Module Tests" begin
+@testset "Provider tests" begin
+
+     @testset "LangdockProvider" begin
+        # Test valid provider creation with all fields
+        @test_nowarn provider = Langdock.LangdockProvider(
+            api_key="test-api-key-123",
+            api_version="v1",
+            base_url="https://api.langdock.com",
+            region="eu",
+            timeout=30
+        )
+        
+        provider = Langdock.LangdockProvider(
+            api_key="test-api-key-123",
+            api_version="v1",
+            region="us"
+        )
+        @test provider.api_key == "test-api-key-123"
+        @test provider.api_version == "v1"
+        @test provider.region == "us"
+        @test provider.timeout == 30
+        
+        # Test default values
+        provider = Langdock.LangdockProvider(api_key="test-key")
+        @test provider.api_key == "test-key"
+        @test provider.api_version == Langdock.DEFAULT_API_VERSION
+        @test provider.base_url == Langdock.DEFAULT_BASE_URL
+        @test provider.region == Langdock.DEFAULT_REGION
+        @test provider.timeout == Langdock.DEFAULT_TIMEOUT
+        
+        # Test invalid API key
+        @test_throws ArgumentError Langdock.LangdockProvider(api_key="")
+        
+        # Test invalid API version
+        @test_throws ArgumentError Langdock.LangdockProvider(
+            api_key="test-key",
+            api_version="v99"
+        )
+        
+        # Test invalid region
+        @test_throws ArgumentError Langdock.LangdockProvider(
+            api_key="test-key",
+            region="invalid"
+        )
+        
+        # Test invalid timeout
+        @test_throws ArgumentError Langdock.LangdockProvider(
+            api_key="test-key",
+            timeout=0
+        )
+        @test_throws ArgumentError Langdock.LangdockProvider(
+            api_key="test-key",
+            timeout=-1
+        )
+    end
     
     # Save original environment
     original_env = Dict{String, String}()
