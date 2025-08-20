@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: main
+    env:
+      LANGDOCK_API_KEY: ${{ secrets.LANGDOCK_API_KEY }}
+      LANGDOCK_TEST_ASSISTANT_ID: ${{ secrets.LANGDOCK_TEST_ASSISTANT_ID }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Julia
+      uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.11'
+
+    - name: Install dependencies
+      run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+
+    - name: Run tests
+      run: julia --project=. -e 'using Pkg; Pkg.test()' 
