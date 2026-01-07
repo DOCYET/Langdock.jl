@@ -3,18 +3,25 @@ using Test
 using HTTP
 using JSON3
 
-@testset "Assistant API" begin 
+@testset "Assistant API" begin
 
-    # This Langdock endpoint works fine when using curl but it a
-    #  breaks when using HTTP.jl. 
-    #@testset "list_assistant_models" begin
-    #    # Test with no API key
-    #    response = Langdock.list_assistant_models(ENV["LANGDOCK_API_KEY"])
-    #    @test response isa Langdock.LangdockResponse
-    #    @test haskey(response.response, "data")
-    #    @test length(response.response["data"]) > 0
-    #end
-    
+    @testset "list_assistant_models" begin
+        # Test with API key
+        response = Langdock.list_assistant_models(ENV["LANGDOCK_API_KEY"])
+        @test response isa Langdock.LangdockResponse
+        @test response.status == 200
+        @test haskey(response.response, :data)
+        @test length(response.response[:data]) > 0
+
+        # Test with provider
+        provider = get_default_provider()
+        response = Langdock.list_assistant_models(provider)
+        @test response isa Langdock.LangdockResponse
+        @test response.status == 200
+        @test haskey(response.response, :data)
+        @test length(response.response[:data]) > 0
+    end
+
     @testset "create_assistant_chat" begin
 
             @testset "with existing assistant" begin 
