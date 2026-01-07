@@ -67,7 +67,8 @@ function create_assistant_chat(
     attachment_ids::Union{Vector{String}, Nothing}=nothing,
     http_kwargs::NamedTuple = NamedTuple(),
     #streamcallback = nothing,
-    kwargs...)
+    kwargs...
+)
 
     # Validate that exactly one of assistant_id or assistant is provided
     (isnothing(assistant_id) && isnothing(assistant)) && throw(ArgumentError("Either assistant_id or assistant must be provided"))
@@ -94,25 +95,25 @@ end
 List all available models for the assistant API.
 """
 function list_assistant_models(
-    api_key::String; 
+    api_key::String;
     http_kwargs::NamedTuple = NamedTuple()
 )
     langdock_request(
-        "/assistant/{version}/models", 
-        api_key; 
-        method = "GET", 
+        "/assistant/{api_version}/models",
+        api_key;
+        method = "GET",
         http_kwargs = http_kwargs
     )
 end
 
 function list_assistant_models(
-    provider::AbstractLangdockProvider;  
+    provider::AbstractLangdockProvider;
     http_kwargs::NamedTuple = NamedTuple()
 )
      langdock_request(
-        "/assistant/{version}/models", 
-        provider; 
-        method = "GET", 
+        "/assistant/{api_version}/models",
+        provider;
+        method = "GET",
         http_kwargs = http_kwargs
     )
 
