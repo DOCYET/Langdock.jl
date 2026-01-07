@@ -14,7 +14,7 @@ This is an unofficial wrapper for [Langdock](https://www.langdock.com/) API.
 | | `POST /openai/{region}/v1/embeddings` | OpenAI embeddings | ✅ |
 | **Assistant API** | | | |
 | | `POST /assistant/v1/chat/completions` | Assistant chat completions | ✅ |
-| | `GET /assistant/v1/models` | List assistant models | ⚠️ |
+| | `GET /assistant/v1/models` | List assistant models | ✅ |
 | | `POST /attachment/v1/upload` | Upload attachment | ❌ |
 | **Knowledge Folder API** | | | |
 | | `POST /knowledge/{folderId}` | Upload file | ❌ |
@@ -25,7 +25,6 @@ This is an unofficial wrapper for [Langdock](https://www.langdock.com/) API.
 
 **Notes:**
 - ✅ Fully implemented and working
-- ⚠️ Implemented but has issues (HTTP.jl compatibility issue, works with curl)
 - ❌ Not yet implemented
 
 ## Usage Examples
