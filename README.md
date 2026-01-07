@@ -39,7 +39,7 @@ ENV["LANGDOCK_API_KEY"] = "your-api-key"
 provider = LangdockProvider(api_key=ENV["LANGDOCK_API_KEY"], region="eu") # or get_default_provider()
 
 # List available assistant models
-models = list_assistant_models(provider) # not working due to issue with HTTP.jl when calling this endpoint
+models = list_assistant_models(provider)
 
 # Create assistant chat
 messages = [Dict("role" => "user", "content" => "Hello!")]
