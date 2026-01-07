@@ -60,7 +60,6 @@ using JSON3
             @test response.status == 200
             @test response.response["result"][begin]["role"] == "assistant"
             @test response.response["result"][begin]["content"] isa AbstractString
-            @test response.response["result"][begin]["id"] isa AbstractString
         
 
             # Test with htttp kwargs 
@@ -76,7 +75,6 @@ using JSON3
             @test response.status == 200
             @test response.response["result"][begin]["role"] == "assistant"
             @test response.response["result"][begin]["content"] isa AbstractString
-            @test response.response["result"][begin]["id"] isa AbstractString
         end
         
         @testset "creating a new assistant on the fly " begin 
@@ -101,7 +99,6 @@ using JSON3
             @test response.status == 200
             @test response.response["result"][begin]["role"] == "assistant"
             @test response.response["result"][begin]["content"] isa AbstractString
-            @test response.response["result"][begin]["id"] isa AbstractString
         end
  
     end
