@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed `list_assistant_models` endpoint URL placeholder from `{version}` to `{api_version}` to match the URL templating system
 
+
 ## [0.1.0] - 2025-01-20
 Initial release of Langdock.jl
 
